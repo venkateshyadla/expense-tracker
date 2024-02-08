@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body{
+        background: linear-gradient(to right,white,rgb(14, 54, 54));
+    }
+    .wel{
+        text-align: center;
+    }
+    .btn1,.btn2{
+        background-color: rgb(193, 232, 193);
+        box-shadow: 1px 1px 12px rgb(181, 238, 181);
+        cursor: pointer;
+        font-family:Georgia, 'Times New Roman', Times, serif;
+        border-radius: 8px;
+        border: 1px solid gray;
+        width: 100px;
+        height:25px;
+        transition: 0.3s;
+        margin-right: 30px;
+        margin-top:20px;
+    }
+    .btn1:hover,.btn2:hover{
+        transition: transform(1s);
+        background-color: rgb(53, 218, 7);
+        color: white;
+        border:1px solid lightgreen;
+        box-shadow: 2px 4px 12px rgb(30, 199, 30);
+    }
+    #greet{
+        font-family:Georgia, 'Times New Roman', Times, serif;
+        text-shadow:2px 2px 4px  rgba(10, 10, 10, 0.5);
+    }
+
+</style>
+<body>
+    <div class="wel">
+    <h1 id="greet">Welcome To Expense Tracking Application</h1>
+    <button class="btn2" type="submit" onclick="move_view('{% url 'login' %}')">Sign-In</button>
+    <button class="btn1" type="submit" onclick="move_view('{% url 'register' %}')">Sign-Up</button>
+</div>
+</body>
+<script>
+    function move_view(url){
+        window.location.href = url;
+    }
+</script>
+</html>

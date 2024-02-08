@@ -1,0 +1,151 @@
+<!-- pie_chart.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pie Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<style>
+    body{
+        background: linear-gradient(to right,white,rgb(182, 184, 184));
+    }
+    #expense_chart{
+        text-align: center;
+        font-family:Georgia, 'Times New Roman', Times, serif;
+        color:brown;
+        text-shadow:2px 2px 4px rgba(0,0,0,0.5);
+    }
+    .graph_area{
+        display: flex;
+    }
+    .wel{
+        font-family:cursive;
+        text-shadow:2px 2px 4px rgba(0,0,0,0.5);
+    }
+    #add_exp{
+        background-color: rgb(193, 232, 193);
+        box-shadow: 1px 1px 12px rgb(181, 238, 181);
+        cursor: pointer;
+        font-family:Georgia, 'Times New Roman', Times, serif;
+        border-radius: 8px;
+        border: 1px solid gray;
+        width: 100px;
+        height:25px;
+        transition: 0.3s;
+    }
+    #add_exp:hover{
+        transition: transform(1s);
+        background-color: green;
+        color: white;
+        box-shadow: 4px 4px 8px rgb(27, 112, 71);
+    }
+    #inc{
+        font-size: 24px;
+        font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
+    .log_out{
+        position: fixed;
+        top: 10%;
+        right:10px;
+    }
+    #log_out{
+        width: 70px;
+        background-color: brown;
+        color: beige;
+        border-radius: 10%;
+        cursor: pointer;
+    }
+</style>
+<body>
+    <form action="{% url 'add_expense' %}" method="post">
+        {% csrf_token %}
+    {% block content %}
+    <h1 class="wel">welcome {{user_info.name}}</h1>
+    <h4>Your Monthly Income : <b id="inc">{{user_info.income}}</b></h4>
+    <h4>Your Savings : <b id="inc">{{user_info.savings}}</b></h4>
+    <input type="submit" id="add_exp" value="Add Expenses">
+    <div class="log_out"><input type="button" id="log_out" value="Log out" onclick="move_view('{% url 'logout' %}')"></div>
+    {% if chart_data %}
+    <div class="graph_area">
+    <div style="width: 38%; margin: auto;">
+        <h2 id="expense_chart">Your Day Expense</h2>
+        <canvas id="daily"></canvas>
+    </div>
+    <div style="width: 50%; margin: auto;">
+        <h2 id="expense_chart">Your Monthly Expenses</h2>
+        <canvas id="monthly"></canvas>
+    </div>
+</div>
+    <script>
+        function move_view(url){
+            window.location.href = url;
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+            var ctx = document.getElementById('daily').getContext('2d');
+            var expenses_data = {{ expenses_data|safe }};
+
+            var data = {
+                labels: expenses_data.map(function (e) { return e.category; }),
+                datasets: [{
+                    data: expenses_data.map(function (e) { return e.amount; }),
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.8)',
+                        'rgba(54, 162, 170, 0.8)',
+                        'rgba(255, 206, 86, 0.8)',
+                        'rgba(75, 192, 192, 0.8)',
+                        'rgba(20, 70, 186, 0.8)',
+                        'rgba(18, 20, 8, 0.8)',
+                        'rgba(120, 26, 19, 0.8)',
+                        'rgba(25, 6, 90, 0.8)',
+                        'rgba(120, 206, 6, 0.8)',
+                        'rgba(25, 20, 186, 0.8)',
+                        
+                    ],
+                }]
+            };
+
+            var myPieChart = new Chart(ctx, {
+                type: 'pie',
+                data: data,
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var ctx = document.getElementById('monthly').getContext('2d');
+            var expenses_data = {{ expenses_data|safe }};
+
+            var data = {
+                labels: expenses_data.map(function (e) { return e.category; }),
+                datasets: [{
+                    data: expenses_data.map(function (e) { return e.amount; }),
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.8)',
+                        'rgba(54, 52, 125, 0.8)',
+                        'rgba(255, 206, 86, 0.8)',
+                        'rgba(75, 192, 192, 0.8)',
+                        'rgba(20, 70, 186, 0.8)',
+                        'rgba(18, 20, 8, 0.8)',
+                        'rgba(120, 26, 19, 0.8)',
+                        'rgba(25, 6, 90, 0.8)',
+                        'rgba(120, 206, 6, 0.8)',
+                        'rgba(25, 20, 186, 0.8)',
+                        
+                    ],
+                }]
+            };
+
+            var myPieChart = new Chart(ctx, {
+                type: 'bar',
+                data: data,
+            });
+        });
+    </script>
+    {% else %}
+    <p style="color:green; font-size:20px;">Still you are not enterd any expenses</p>
+    {% endif %}
+    {% endblock content %}
+</form>
+</body>
+</html>

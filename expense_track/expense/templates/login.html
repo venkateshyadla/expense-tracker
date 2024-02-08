@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body{
+        background: linear-gradient(to right,white,rgb(14, 54, 54));
+    }
+    .logins{
+        text-align: center;
+    }
+    #pwd,#email_mob,#submit{
+        margin: 10px;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        box-shadow: 2px 4px 12px black;
+        outline-color: green;
+        border-radius: 5px;
+        border-width: 0px;
+    }
+    #err{
+        color: red;
+    }
+    #submit{
+        background-color: rgb(193, 232, 193);
+        box-shadow: 1px 1px 12px rgb(181, 238, 181);
+        cursor: pointer;
+        font-family:Georgia, 'Times New Roman', Times, serif;
+        border-radius: 8px;
+        border: 1px solid gray;
+        width: 100px;
+        height:25px;
+        transition: 0.3s;
+    }
+    #submit:hover{
+        transition: transform(1s);
+        background-color: rgb(53, 218, 7);
+        color: white;
+        border:1px solid lightgreen;
+        box-shadow: 2px 4px 12px rgb(30, 199, 30);
+    }
+
+</style>
+<body>
+    <form method="post">
+        {% csrf_token %}
+    <div class="logins">
+    <h1>Login Page</h1>
+    <label for="email_mob"><b>Email or Mobile :</b></label>
+    <input type="text" id="email_mob" name="email_mob" required>
+    <br>
+    <label for="pwd"><b>Password:</b></label>
+    <input type="password" id="pwd" name="pwwd" required>
+    <br>
+    <input type="submit" id="submit" value="Sign In">
+</div></form>
+{% if error_message %}
+        <p id="err">{{ error_message }}</p>
+    {% endif %}
+</body>
+</html>

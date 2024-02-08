@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #reg{
+        font-family:Georgia, 'Times New Roman', Times, serif ;
+    }
+    #sub{
+        
+        background-color: rgb(193, 232, 193);
+        box-shadow: 1px 1px 12px rgb(181, 238, 181);
+        cursor: pointer;
+        font-family:Georgia, 'Times New Roman', Times, serif;
+        border-radius: 8px;
+        border: 1px solid gray;
+        width: 100px;
+        height:25px;
+        transition: 0.3s;
+
+    }
+    #sub:hover{
+        transition: transform(1s);
+        background-color: rgb(53, 218, 7);
+        color: white;
+        border:1px solid lightgreen;
+        box-shadow: 2px 4px 12px rgb(30, 199, 30);
+    }
+    body{
+        background: linear-gradient(to right,white,rgb(14, 54, 54));
+    }
+    .reg_form{
+        display: flex;
+        align-items: center;
+        margin:2%;
+        left: 50%;
+        transform: translateX(30%);
+
+    }
+    input,select{
+        margin: 5px;
+    }
+</style>
+<body>
+    <div class="reg_form">
+    <form method="post" action="{% url 'register' %}" enctype="multipart/form-data">
+    <h1 id="reg">Start Registration</h1>
+    {% csrf_token %}
+
+    {% if error_message %}
+        <p style="color: red;">{{ error_message }}</p>
+    {% endif %}
+    <label for="name"><b>Name</b> :</label>
+    <input type="text" id="name" name="name" required>
+    <br>
+    <label for="email"><b>Email:</b></label>
+    <input type="text" id="email" name="email" required>
+    <br>
+    <label for="mob"><b>Mobile no:</b></label>
+    <input type="text" id="mob" name="mob" required>
+    <br>
+    <label for="pwd"><b>Password :</b></label>
+    <input type="password" id="pwd" name="pwd" required>
+    <br>
+
+    <label for="dob"><b>Date of Birth :</b></label>
+    <input type="date" id="dob" name="dob" required>
+    <br>
+    <label for="gender"><B>Gender :</B></label>
+    <select id="gender" name="gender" required>
+        <option value="M">Male</option>
+        <option value="F">Female</option>
+        <option value="O">Other</option>
+    </select>
+    <br>
+    <label for="ms"><B>Martial Status :</B></label>
+    <select id="ms" name="m_s" required>
+        <option value="single">Single</option>
+        <option value="married">Married</option>
+        <option value="commited">Commited</option>
+        <option>mingle</option>
+    </select>
+    <br>
+    <label for="id_profile_image"><B>Profile Image:</B></label>
+        <input type="file" name="profile_image" id="id_profile_image">
+    <br>
+    <label for="ocp"><B>Occupation :</B></label>
+    <input type="text" id="ocp" name="occupation">
+    <br>
+  
+    <label for="income"><b>Income :</b>
+    <select id="cureency" required>
+        <option value="rupee">Rupee</option>
+        <option value="dollar">dollar</option>
+        <option value="euro">Euro</option>
+        <option>mingle</option>
+    </select></label>
+    <input type="number" name="income" id="income" required>
+    <br>
+    <br>
+    <input type="submit" id="sub">
+</form>
+</div>
+</body>
+</html>

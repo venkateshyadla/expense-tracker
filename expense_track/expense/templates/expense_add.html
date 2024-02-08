@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body{
+        background: linear-gradient(to right,white,rgb(139, 159, 153));
+    }
+    .add_exp{
+        margin-left: 50%;
+        margin-top: 2%;
+        transform: translateX(-25%);
+    }
+    button{
+        margin-top: 2%;
+        margin-left: 5%;
+    }
+</style>
+<body>
+    <form action="{% url 'add_expense' %}" method="post">
+        {% csrf_token %}
+        
+        <div class="add_exp">
+            <h1>Add Today Expenses</h1>
+            {{ form.as_p }}
+            <label for="desc">Description About Expense</label>
+            <textarea id="desc" name="Description" placeholder="Write Description"></textarea>
+        
+        <br>
+        <br>
+        <p style="color: green;"><b>{{msg}}</b></p>
+        <button type="submit" id="ad" name="btn_type" value="add_exp">Add Expenses</button>
+        <button type="button" id="goto" onclick="go_dashboard()">Your Dashboard</button>
+    </div>
+    </form>
+</body>
+<script>
+    function go_dashboard(){
+        window.location.href = "{% url 'dashboard' %}";
+    }
+</script>
+</html>
